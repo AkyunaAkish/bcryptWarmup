@@ -173,7 +173,7 @@ function authorizedUser(req, res, next) {
 }
 ```
 
-* Then you'll need to modify the router.get('/home') route to use the middleware function:
+* Then you'll need to modify the router.get('/home') route in routes/index.js to use the middleware function by adding the name of the authorizedUser function as the second argument to router.get('/home'):
 
 ```
 router.get('/home', authorizedUser ,function(req,res,next){
@@ -191,3 +191,9 @@ router.get('/logout', function(req,res,next){
   res.redirect('/');
 });
 ```
+
+* Now if you're not logged in and you type localhost:3000/home in the browser your should be redirected back to '/' .
+
+* If you still have time to spare, create validation errors for register and login so you can't submit invalid data.
+
+* Also you can welcome the user by name when they login and are directed to the '/home' route. A nice gesture. (hint the username is stored in req.session.user) 
