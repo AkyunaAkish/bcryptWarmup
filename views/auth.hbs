@@ -1,0 +1,25 @@
+<h1>REGISTER!</h1>
+
+<form action="/user/register" method="post">
+  <label>Username!</label>
+  <input type="text" name="username">
+  <label>Password!</label>
+  <input type="password" name="password">
+
+  <input type="submit" value="Register!">
+</form>
+
+{{#if error}}
+<h2 style="color:red;">{{error}}</h2>
+{{/if}}
+
+<h1>LOGIN!</h1>
+
+<form action="/user/login" method="post">
+  <label>Username!</label>
+  <input type="text" name="username">
+  <label>Password!</label>
+  <input type="password" name="password">
+
+  <input type="submit" value="Login!">
+</form>
