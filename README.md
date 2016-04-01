@@ -97,6 +97,11 @@ router.post('/user/login', function(req,res,next){
   });
 });
 ```
+* Run your server with nodemon and try registering and logging in at localhost:3000
+
+```
+$ nodemon
+```
 
 * Check your work by going into psql and seeing if you are creating users in your users table
 
@@ -106,6 +111,8 @@ $ psql knex-auth
 ```
 
 #Stretch Goal
+
+### Cookie-session, middleware authorization, logout
 
 * Install cookie-session
 
@@ -152,6 +159,35 @@ router.post('/user/login', function(req,res,next){
 });
 ```
 
-* Once you get there, your next challenge will be to use middleware to protect the router.get('/home') route so that you cannot view that route unless there is an active session. (req.session.user must be defined) If a user tries to go to router.get('/home') without an active session, they should be redirected back to the router.get('/') route
+* Once you get there, next you'll use middleware to protect the router.get('/home') route so that you cannot view that route unless there is an active session. (req.session.user must be defined) If a user tries to go to router.get('/home') without an active session, they should be redirected back to the router.get('/') route
 
-* Also you can create logout functionality where you set req.session.user = null; and redirect back to ('/').
+* First you can make middleware function towards the top of your routes/index.js file (about router.get('/')) that will check if a user session is active, call next(); if there is a user session, or redirect back to '/' if there is no session
+
+```
+function authorizedUser(req, res, next) {
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect('/');
+  }
+}
+```
+
+* Then you'll need to modify the router.get('/home') route to use the middleware function:
+
+```
+router.get('/home', authorizedUser ,function(req,res,next){
+  res.render('home');
+});
+```
+
+* That should be sufficient for protecting the /home route against a non-logged in user.
+
+* Also you can create logout functionality where you set req.session.user = null; and redirect back to ('/'). You can also make an anchor tag on the home.hbs page that has an href of '/logout' to make it easier to test out
+
+```
+router.get('/logout', function(req,res,next){
+  req.session.user = null;
+  res.redirect('/');
+});
+```
