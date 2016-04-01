@@ -161,7 +161,7 @@ router.post('/user/login', function(req,res,next){
 
 * Once you get there, next you'll use middleware to protect the router.get('/home') route so that you cannot view that route unless there is an active session. (req.session.user must be defined) If a user tries to go to router.get('/home') without an active session, they should be redirected back to the router.get('/') route
 
-* First you can make middleware function towards the top of your routes/index.js file (about router.get('/')) that will check if a user session is active, call next(); if there is a user session, or redirect back to '/' if there is no session
+* First you can a make middleware function towards the top of your routes/index.js file (about router.get('/')) that will check if a user session is active, call next(); if there is a user session, or redirect back to '/' if there is no session
 
 ```
 function authorizedUser(req, res, next) {
