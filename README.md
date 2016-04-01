@@ -148,7 +148,7 @@ router.post('/user/login', function(req,res,next){
   .then(function(response){
     if(response && bcrypt.compareSync(req.body.password, response.password)){
 
-      //Notice here we set req.session.user to the current user before redirecting
+      //LOOK HERE: Notice we set req.session.user to the current user before redirecting
       req.session.user = response.username;
 
       res.redirect('/home');
