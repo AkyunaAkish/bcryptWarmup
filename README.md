@@ -51,6 +51,12 @@ exports.down = function(knex, Promise) {
 
 ```
 
+* Run your migration file:
+
+```
+$ knex migrate:latest
+```
+
 * Now require knex and bcryptjs in your routes/index.js file:
 
 ```
@@ -90,6 +96,13 @@ router.post('/user/login', function(req,res,next){
     }
   });
 });
+```
+
+* Check your work by going into psql and seeing if you are creating users in your users table
+
+```
+$ psql knex-auth
+   select * from users;
 ```
 
 #Stretch Goal
